@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-baidu-geolocation",
+  "version": "1.0.0",
+  "description": "百度定位插件",
+  "cordova": {
+    "id": "cordova-plugin-baidu-geolocation",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "bonc",
+  "license": "ISC"
+}

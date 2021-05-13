@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+<!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+                <button onclick="clickJsPlugin()">测试js插件</button>
+                <button onclick="clickLocationPlugin()">测试原生定位</button>
+                <button onclick="clickLocationContinuePlugin()">测试原生连续定位</button>
+                <button onclick="clickBaiduLocationPlugin()">测试百度bd09ll定位</button>
+                <button onclick="clickBaiduGCLocationPlugin()">测试百度GCJ02定位</button>
+                <button onclick="clickBaiduBD09LocationPlugin()">测试百度BD09MC定位</button>
+                <button onclick="clickBaiduClearLocation()">测试百度停止定位</button>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            //调用JS方法
+            function clickJsPlugin() {
+                logger.alterLog();
+            };
+        
+            function clickLocationPlugin() {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    //成功回调
+                 alert('Latitude: '         + position.coords.latitude         + '\n' +
+                       'Longitude: '        + position.coords.longitude        + '\n' +
+                       'Altitude: '         + position.coords.altitude         + '\n' +
+                       'Accuracy: '         + position.coords.accuracy         + '\n' +
+                       'Altitude Accuracy: '+ position.coords.altitudeAccuracy + '\n' +
+                       'Timestamp: '        + position.timestamp               + '\n');
+                      },
+                  function(error){
+                 //定位失败回调
+                 alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                  },{
+                      type: 'bd09ll',  //GCJ02  bd09ll BD09
+                      maximumAge: 3000,
+                      timeout: 5000,
+                      altitude: false,
+                      enableHighAccuracy: true, //精度
+                      withReGeocode: false
+                    });
+            };
+        
+            function clickLocationContinuePlugin() {
+                navigator.geolocation.watchPosition(function(position){
+                    //成功回调
+                 alert('Latitude: '         + position.coords.latitude         + '\n' +
+                       'Longitude: '        + position.coords.longitude        + '\n' +
+                       'Altitude: '         + position.coords.altitude         + '\n' +
+                       'Accuracy: '         + position.coords.accuracy         + '\n' +
+                       'Altitude Accuracy: '+ position.coords.altitudeAccuracy + '\n' +
+                       'Timestamp: '        + position.timestamp               + '\n');
+                      },
+                  function(error){
+                 //定位失败回调
+                 alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                  },{
+                      type: 'bd09ll',  //GCJ02  bd09ll BD09
+                      maximumAge: 3000,
+                      timeout: 5000,
+                      altitude: false,
+                      enableHighAccuracy: true, //精度
+                      withReGeocode: false
+                    });
+            };
+        
+            function clickBaiduLocationPlugin() {
+                navigator.BaiduGeolocation.getCurrentPosition(function(position){
+                    //成功回调
+                    alert('accuracy: '         + position.accuracy          + '\n' +
+                          'addr: '             + position.addr              + '\n' +
+                          'city: '             + position.city              + '\n' +
+                          'country: '          + position.country           + '\n' +
+                          'countryCode: '      + position.countryCode       + '\n' +
+                          'district: '         + position.district          + '\n' +
+                          'latitude: '         + position.latitude          + '\n' +
+                          'longitude: '        + position.longitude         + '\n' +
+                          'province: '         + position.province          + '\n' +
+                          'locationDescribe: ' + position.locationDescribe  + '\n' +
+                          'street: '           + position.street            + '\n' +
+                          'Timestamp: '        + position.timestamp         + '\n');
+                  },
+                function(error){
+                    //定位失败回调
+                    alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                    },{
+                     type: 'BD09LL',  //GCJ02  BD09LL BD09MC
+                     maximumAge: 3000,
+                     timeout: 5000,
+                     altitude: false,
+                     enableHighAccuracy: true, //精度
+                     withReGeocode: false
+                   });
+            };
+            function clickBaiduGCLocationPlugin() {
+                navigator.BaiduGeolocation.getCurrentPosition(function(position){
+                    //成功回调
+                    alert('accuracy: '         + position.accuracy          + '\n' +
+                          'addr: '             + position.addr              + '\n' +
+                          'city: '             + position.city              + '\n' +
+                          'country: '          + position.country           + '\n' +
+                          'countryCode: '      + position.countryCode       + '\n' +
+                          'district: '         + position.district          + '\n' +
+                          'latitude: '         + position.latitude          + '\n' +
+                          'longitude: '        + position.longitude         + '\n' +
+                          'province: '         + position.province          + '\n' +
+                          'locationDescribe: ' + position.locationDescribe  + '\n' +
+                          'street: '           + position.street            + '\n' +
+                          'Timestamp: '        + position.timestamp         + '\n');
+                  },
+                function(error){
+                    //定位失败回调
+                    alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                    },{
+                     type: 'GCJ02',  //GCJ02  bd09ll BD09
+                     maximumAge: 3000, // 缓存过期时间，单位：ms
+                     timeout: 5000,
+                     altitude: false,
+                     enableHighAccuracy: true, //精度
+                     withReGeocode: false
+                   });
+            };
+            function clickBaiduBD09LocationPlugin() {
+                navigator.BaiduGeolocation.watchPosition(function(position){
+                    //成功回调
+                    alert('accuracy: '         + position.accuracy          + '\n' +
+                          'addr: '             + position.addr              + '\n' +
+                          'city: '             + position.city              + '\n' +
+                          'country: '          + position.country           + '\n' +
+                          'countryCode: '      + position.countryCode       + '\n' +
+                          'district: '         + position.district          + '\n' +
+                          'latitude: '         + position.latitude          + '\n' +
+                          'longitude: '        + position.longitude         + '\n' +
+                          'province: '         + position.province          + '\n' +
+                          'locationDescribe: ' + position.locationDescribe  + '\n' +
+                          'street: '           + position.street            + '\n' +
+                          'Timestamp: '        + position.timestamp         + '\n');
+                  },
+                function(error){
+                    //定位失败回调
+                    alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                    },{
+                     type: 'BD09MC',
+                     maximumAge: 3000, // 缓存过期时间，单位：ms
+                     timeout: 5000,
+                     altitude: false,
+                     enableHighAccuracy: true, //精度
+                     withReGeocode: false,
+<!--                     signature:'5D2A37EB0BA29984809B3FBB8CBA53A2',-->
+<!--                     appId:'root',-->
+<!--                     timeStamp:'1612685461607',-->
+<!--                     nonce:'0.19920289499542576',-->
+                   });
+            };
+            function clickBaiduClearLocation() {
+                navigator.BaiduGeolocation.clearWatch(function(position){
+                    //成功回调
+                    alert('成功');
+                  },
+                function(error){
+                    //定位失败回调
+                    alert('code: '    + error.code    + '\n' +
+                       'message: ' + error.message + '\n');
+                    },{
+                     signature:'5D2A37EB0BA29984809B3FBB8CBA53A2',
+                     appId:'root',
+                     timeStamp:'1612685461607',
+                     nonce:'0.19920289499542576',
+                   },"1");
+            };
+        </script>
+    </body>
+</html>

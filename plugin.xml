@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-baidu-geolocation" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>BaiduGeolocation</name>
+    <js-module name="BaiduGeolocation" src="www/BaiduGeolocation.js">
+        <clobbers target="navigator.BaiduGeolocation" />
+    </js-module>
+    <preference name="IOS_API_KEY"/>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BaiduGeolocation">
+                <param name="android-package" value="cordova-plugin-baidu-geolocation.BaiduGeolocation" />
+            </feature></config-file>
+        <config-file parent="/*" target="AndroidManifest.xml" />
+        <source-file src="src/android/BaiduGeolocation.java" target-dir="src/cordova-plugin-baidu-geolocation/BaiduGeolocation" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="BaiduGeolocation">
+                <param name="ios-package" value="BaiduGeolocation" />
+            </feature>
+            <preference name="IOS_API_KEY" value="$IOS_API_KEY"/>
+        </config-file>
+        
+        <config-file parent="NSLocationWhenInUseUsageDescription" target="*-Info.plist">
+            <string>I need permission</string>
+        </config-file>
+        <config-file parent="NSLocationAlwaysUsageDescription" target="*-Info.plist">
+            <string>I need permission</string>
+        </config-file>
+        <config-file parent="NSLocationAlwaysAndWhenInUseUsageDescription" target="*-Info.plist">
+            <string>I need permission</string>
+        </config-file>
+
+        <config-file parent="UIBackgroundModes" target="*-Info.plist">
+            <array>
+                <string>location</string>
+            </array>
+        </config-file>
+        
+        <source-file src="src/ios/BaiduGeolocation.h" />
+        <source-file src="src/ios/BaiduGeolocation.mm" />
+        
+        <source-file src="libs/ios/libcrypto.a" framework="true" />
+        <source-file src="libs/ios/libssl.a" framework="true" />
+        
+        <framework custom="true" src="libs/ios/BaiduMapAPI_Base.framework"/>
+        <framework custom="true" src="libs/ios/BaiduMapAPI_Map.framework"/>
+        <framework custom="true" src="libs/ios/BaiduMapAPI_Search.framework"/>
+        <framework custom="true" src="libs/ios/BMKLocationKit.framework"/>
+                        
+        <framework src="libsqlite3.0.tbd"/>
+        <framework src="CoreTelephony.framework"/>
+        <framework src="CoreGraphics.framework"/>
+        <framework src="CoreLocation.framework"/>
+        <framework src="OpenGLES.framework"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="Security.framework"/>
+        <framework src="SystemConfiguration.framework"/>
+    </platform>
+</plugin>
