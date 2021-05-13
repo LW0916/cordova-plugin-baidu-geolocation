@@ -14,7 +14,7 @@
 ```bash
 
 # 1.通过github安装 （1.0.0版本，由于github限速，可以将插件克隆或者下载到本地安装）
-cordova plugin add https://github.com/LW0916/cordova-plugin-baidu-geolocation.git  --variable  IOS_API_KEY=your ios key
+cordova plugin add https://github.com/LW0916/cordova-plugin-baidu-geolocation  --variable  IOS_API_KEY=your ios key
 
 # 2.或者本地安
 cordova plugin add --link 文件路径   --variable  IOS_API_KEY=your ios key
